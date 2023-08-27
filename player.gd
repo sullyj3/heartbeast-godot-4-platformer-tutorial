@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 @export var movement_data : PlayerMovementData
 
+var can_air_jump = false
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -13,10 +14,17 @@ func apply_gravity(delta):
 		velocity.y += gravity * delta * movement_data.gravity_scale
 
 func handle_jump():
+	if is_on_floor(): 
+		can_air_jump = true
+
 	if Input.is_action_just_pressed("ui_accept"):
 		var can_jump = is_on_floor() or not coyote_jump_timer.is_stopped()
 		if can_jump:
 			velocity.y = movement_data.jump_velocity
+		elif not is_on_floor() and can_air_jump:
+			velocity.y = movement_data.jump_velocity * 0.8
+			can_air_jump = false
+
 	# slow upwards movement on jump release
 	elif Input.is_action_just_released("ui_accept") and not is_on_floor() and velocity.y < 0:
 		velocity.y = velocity.y / 2
