@@ -22,8 +22,9 @@ func handle_jump():
 		velocity.y = velocity.y / 2
 
 func handle_acceleration(input_axis, delta):
+	var acceleration = movement_data.acceleration if is_on_floor() else movement_data.air_acceleration
 	if input_axis != 0:
-		velocity.x = move_toward(velocity.x, input_axis * movement_data.speed, movement_data.acceleration * delta)
+		velocity.x = move_toward(velocity.x, input_axis * movement_data.speed, acceleration * delta)
 
 # ground only
 func apply_friction(input_axis, delta):
