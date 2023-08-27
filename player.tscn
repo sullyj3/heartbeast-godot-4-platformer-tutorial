@@ -100,5 +100,3 @@ shape = SubResource("RectangleShape2D_ltfmk")
 [node name="Coyote Jump Timer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
-
-[connection signal="timeout" from="Coyote Jump Timer" to="." method="_on_coyote_jump_timer_timeout"]
