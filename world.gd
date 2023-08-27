@@ -11,3 +11,5 @@ func _ready():
 
 func _process(delta):
 	camera.position = player.position
+	if Input.is_action_just_pressed("ui_cancel"):
+		get_tree().quit()
