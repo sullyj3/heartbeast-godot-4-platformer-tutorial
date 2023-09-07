@@ -9,6 +9,8 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var animated_sprite_2d = $AnimatedSprite2D
 @onready var coyote_jump_timer = $"Coyote Jump Timer"
 
+@onready var initial_position = position
+
 func apply_gravity(delta):
 	if not is_on_floor():
 		# when player has jumped, they can release jump to slow their ascent
@@ -52,6 +54,8 @@ func apply_air_resistance(input_axis, delta):
 		velocity.x = move_toward(velocity.x, 0, movement_data.air_resistance * delta)
 
 func _physics_process(delta):
+	if die_if_fell_out_of_world():
+		return
 	apply_gravity(delta)
 	handle_jump()
 	var input_axis = Input.get_axis("ui_left", "ui_right")
@@ -64,6 +68,10 @@ func _physics_process(delta):
 	var just_left_ledge = (was_on_floor and not is_on_floor() and velocity.y >= 0)
 	if just_left_ledge:
 		coyote_jump_timer.start()
+
+func die_if_fell_out_of_world():
+	if position.y > 360:
+		position = initial_position 
 
 # default sprite faces right, flipped faces left
 # negative if facting left, positive if facing right
@@ -91,3 +99,4 @@ func update_animations(input_axis):
 		animated_sprite_2d.play("jump")
 
 	animated_sprite_2d.flip_h = facing_direction < 0
+
