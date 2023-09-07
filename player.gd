@@ -11,8 +11,13 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func apply_gravity(delta):
 	if not is_on_floor():
-		velocity.y += gravity * delta * movement_data.gravity_scale
-
+		# when player has jumped, they can release jump to slow their ascent
+		# we apply heavier gravity when moving upwards with jump key released
+		# TODO this is a bit of a hack, may need to revisit when there are other 
+		# possible causes of the player moving upwards than just jumping
+		var heavy_gravity = velocity.y < 0 and not Input.is_action_pressed("ui_accept")
+		var jump_released_gravity_scalar = 3.0 if heavy_gravity else 1.0
+		velocity.y += gravity * delta * movement_data.gravity_scale * jump_released_gravity_scalar
 func handle_jump():
 	if is_on_floor(): 
 		can_air_jump = true
@@ -21,13 +26,16 @@ func handle_jump():
 		var can_jump = is_on_floor() or not coyote_jump_timer.is_stopped()
 		if can_jump:
 			velocity.y = movement_data.jump_velocity
-		elif not is_on_floor() and can_air_jump:
+		elif is_on_wall():
+			# can wall jump
+			var wall_normal = get_wall_normal()
+			velocity.y = movement_data.jump_velocity * 0.8
+			velocity.x = wall_normal.x * movement_data.wall_jump_h_speed
+			facing_direction = sign(velocity.x)
+		elif can_air_jump:
+			print("air jump")
 			velocity.y = movement_data.jump_velocity * 0.8
 			can_air_jump = false
-
-	# slow upwards movement on jump release
-	elif Input.is_action_just_released("ui_accept") and not is_on_floor() and velocity.y < 0:
-		velocity.y = velocity.y / 2
 
 func handle_acceleration(input_axis, delta):
 	var acceleration = movement_data.acceleration if is_on_floor() else movement_data.air_acceleration
@@ -57,13 +65,29 @@ func _physics_process(delta):
 	if just_left_ledge:
 		coyote_jump_timer.start()
 
+# default sprite faces right, flipped faces left
+# negative if facting left, positive if facing right
+var facing_direction = 1
+
 func update_animations(input_axis):
 	if input_axis == 0:
 		animated_sprite_2d.play("idle")
 	else:
 		animated_sprite_2d.play("run")
-		animated_sprite_2d.flip_h = input_axis < 0
-	
+
+		# if we're moving in the same direction as our velocity, face that way
+		if sign(input_axis) == sign(velocity.x):
+			facing_direction = sign(input_axis)
+		else:
+			# player trying to move in opposite direction of velocity.
+			# face sprite in direction of input as long as their
+			# reverse velocity is below a certain threshold
+			const H_FLIP_THRESHOLD_VELOCITY = 100
+			var should_face_input = abs(velocity.x) < H_FLIP_THRESHOLD_VELOCITY
+			facing_direction = sign(input_axis) if should_face_input else sign(velocity.x)
+
 	# when in air, override run and idle and play "jump" 
 	if not is_on_floor():
 		animated_sprite_2d.play("jump")
+
+	animated_sprite_2d.flip_h = facing_direction < 0
