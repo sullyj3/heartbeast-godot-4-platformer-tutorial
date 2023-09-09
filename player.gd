@@ -31,7 +31,7 @@ func handle_jump():
 		elif is_on_wall():
 			# can wall jump
 			var wall_normal = get_wall_normal()
-			velocity.y = movement_data.jump_velocity * 0.8
+			velocity.y = movement_data.jump_velocity * 0.55
 			velocity.x = wall_normal.x * movement_data.wall_jump_h_speed
 			facing_direction = sign(velocity.x)
 		elif can_air_jump:
@@ -40,8 +40,11 @@ func handle_jump():
 
 func handle_acceleration(input_axis, delta):
 	var acceleration = movement_data.acceleration if is_on_floor() else movement_data.air_acceleration
+	var speed = movement_data.speed
+	if Input.is_action_pressed("sprint"):
+		speed *= 1.75
 	if input_axis != 0:
-		velocity.x = move_toward(velocity.x, input_axis * movement_data.speed, acceleration * delta)
+		velocity.x = move_toward(velocity.x, input_axis * speed, acceleration * delta)
 
 # ground only
 func apply_friction(input_axis, delta):
