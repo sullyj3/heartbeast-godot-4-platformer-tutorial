@@ -14,5 +14,5 @@ func _process(delta):
 	# smooth camera movement (exponential decay)
 	var camera_player_offset = player.position - camera.position
 	camera.position = camera.position + camera_player_offset * 0.3
-	if Input.is_action_just_pressed("ui_cancel"):
+	if Input.is_action_just_pressed("quit"):
 		get_tree().quit()

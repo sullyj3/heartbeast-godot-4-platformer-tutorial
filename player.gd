@@ -17,14 +17,14 @@ func apply_gravity(delta):
 		# we apply heavier gravity when moving upwards with jump key released
 		# TODO this is a bit of a hack, may need to revisit when there are other 
 		# possible causes of the player moving upwards than just jumping
-		var heavy_gravity = velocity.y < 0 and not Input.is_action_pressed("ui_accept")
+		var heavy_gravity = velocity.y < 0 and not Input.is_action_pressed("jump")
 		var jump_released_gravity_scalar = 3.0 if heavy_gravity else 1.0
 		velocity.y += gravity * delta * movement_data.gravity_scale * jump_released_gravity_scalar
 func handle_jump():
 	if is_on_floor(): 
 		can_air_jump = true
 
-	if Input.is_action_just_pressed("ui_accept"):
+	if Input.is_action_just_pressed("jump"):
 		var can_jump = is_on_floor() or not coyote_jump_timer.is_stopped()
 		if can_jump:
 			velocity.y = movement_data.jump_velocity
