@@ -25,7 +25,6 @@ func handle_jump():
 		can_air_jump = true
 
 	if Input.is_action_just_pressed("ui_accept"):
-		print("ui_accept pressed")
 		var can_jump = is_on_floor() or not coyote_jump_timer.is_stopped()
 		if can_jump:
 			velocity.y = movement_data.jump_velocity
@@ -36,7 +35,6 @@ func handle_jump():
 			velocity.x = wall_normal.x * movement_data.wall_jump_h_speed
 			facing_direction = sign(velocity.x)
 		elif can_air_jump:
-			print("air jump")
 			velocity.y = movement_data.jump_velocity * 0.8
 			can_air_jump = false
 
