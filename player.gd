@@ -11,7 +11,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var initial_position = position
 
-func apply_gravity(delta):
+func apply_gravity(delta: float):
 	if not is_on_floor():
 		# when player has jumped, they can release jump to slow their ascent
 		# we apply heavier gravity when moving upwards with jump key released
@@ -38,7 +38,7 @@ func handle_jump():
 			velocity.y = movement_data.jump_velocity * 0.8
 			can_air_jump = false
 
-func handle_acceleration(input_axis, delta):
+func handle_acceleration(input_axis: float, delta):
 	var acceleration = movement_data.acceleration if is_on_floor() else movement_data.air_acceleration
 	var speed = movement_data.speed
 	if Input.is_action_pressed("sprint"):
@@ -47,11 +47,11 @@ func handle_acceleration(input_axis, delta):
 		velocity.x = move_toward(velocity.x, input_axis * speed, acceleration * delta)
 
 # ground only
-func apply_friction(input_axis, delta):
+func apply_friction(input_axis: float, delta):
 	if input_axis == 0 and is_on_floor():
 		velocity.x = move_toward(velocity.x, 0, movement_data.friction * delta)
 
-func apply_air_resistance(input_axis, delta):
+func apply_air_resistance(input_axis: float, delta):
 	if input_axis == 0 and not is_on_floor():
 		velocity.x = move_toward(velocity.x, 0, movement_data.air_resistance * delta)
 
@@ -60,7 +60,7 @@ func _physics_process(delta):
 		return
 	apply_gravity(delta)
 	handle_jump()
-	var input_axis = Input.get_axis("ui_left", "ui_right")
+	var input_axis: float = Input.get_axis("ui_left", "ui_right")
 	update_animations(input_axis)
 	handle_acceleration(input_axis, delta)
 	apply_friction(input_axis, delta)
@@ -79,7 +79,7 @@ func die_if_fell_out_of_world():
 # negative if facting left, positive if facing right
 var facing_direction = 1
 
-func update_animations(input_axis):
+func update_animations(input_axis: float):
 	if input_axis == 0:
 		animated_sprite_2d.play("idle")
 	else:
