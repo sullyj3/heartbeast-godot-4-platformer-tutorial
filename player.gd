@@ -11,6 +11,11 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var initial_position = position
 
+@onready var raycast_left_leg: RayCast2D = $raycast_left_leg
+@onready var raycast_left_shoulder: RayCast2D = $raycast_left_shoulder
+@onready var raycast_right_leg: RayCast2D = $raycast_right_leg
+@onready var raycast_right_shoulder: RayCast2D = $raycast_right_shoulder
+
 func apply_gravity(delta: float):
 	if not is_on_floor():
 		# when player has jumped, they can release jump to slow their ascent
@@ -20,23 +25,39 @@ func apply_gravity(delta: float):
 		var heavy_gravity = velocity.y < 0 and not Input.is_action_pressed("jump")
 		var jump_released_gravity_scalar = 3.0 if heavy_gravity else 1.0
 		velocity.y += gravity * delta * movement_data.gravity_scale * jump_released_gravity_scalar
+
+# returns either the normal of the wall we're touching, or false if we're not touching a wall
+func maybe_wall_collision_normal():
+	# TODO ensure collision is with a wall
+	match facing_direction:
+		-1.0:
+			if raycast_left_leg.is_colliding(): return raycast_left_leg.get_collision_normal()
+			if raycast_left_shoulder.is_colliding(): return raycast_left_shoulder.get_collision_normal()
+		1.0:
+			if raycast_right_leg.is_colliding(): return raycast_right_leg.get_collision_normal()
+			if raycast_right_shoulder.is_colliding(): return raycast_right_shoulder.get_collision_normal()
+		_:
+			return false
+
 func handle_jump():
 	if is_on_floor(): 
 		can_air_jump = true
 
 	if Input.is_action_just_pressed("jump"):
-		var can_jump = is_on_floor() or not coyote_jump_timer.is_stopped()
-		if can_jump:
+		if is_on_floor():
 			velocity.y = movement_data.jump_velocity
-		elif is_on_wall():
-			# can wall jump
-			var wall_normal = get_wall_normal()
-			velocity.y = movement_data.jump_velocity * 0.55
-			velocity.x = wall_normal.x * movement_data.wall_jump_h_speed
-			facing_direction = sign(velocity.x)
-		elif can_air_jump:
-			velocity.y = movement_data.jump_velocity * 0.8
-			can_air_jump = false
+		elif not coyote_jump_timer.is_stopped():
+			velocity.y = movement_data.jump_velocity
+		else:
+			var wall_normal = maybe_wall_collision_normal()
+			if wall_normal:
+				velocity.y = movement_data.wall_jump_v_speed
+				velocity.x = wall_normal.x * movement_data.wall_jump_h_speed
+				facing_direction = sign(velocity.x)
+				can_air_jump = true
+			elif can_air_jump:
+				velocity.y = movement_data.jump_velocity * 0.8
+				can_air_jump = false
 
 func handle_acceleration(input_axis: float, delta):
 	var acceleration = movement_data.acceleration if is_on_floor() else movement_data.air_acceleration

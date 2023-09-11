@@ -100,3 +100,19 @@ shape = SubResource("RectangleShape2D_ltfmk")
 [node name="Coyote Jump Timer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
+
+[node name="raycast_left_leg" type="RayCast2D" parent="."]
+position = Vector2(-4, -2)
+target_position = Vector2(-1, 0)
+
+[node name="raycast_left_shoulder" type="RayCast2D" parent="."]
+position = Vector2(-4, -8)
+target_position = Vector2(-1, 0)
+
+[node name="raycast_right_leg" type="RayCast2D" parent="."]
+position = Vector2(4, -2)
+target_position = Vector2(1, 0)
+
+[node name="raycast_right_shoulder" type="RayCast2D" parent="."]
+position = Vector2(4, -8)
+target_position = Vector2(1, 0)
