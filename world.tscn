@@ -1,20 +1,30 @@
-[gd_scene load_steps=3 format=3 uid="uid://cm84lsxp6tc1u"]
+[gd_scene load_steps=4 format=3 uid="uid://cm84lsxp6tc1u"]
 
 [ext_resource type="Script" path="res://world.gd" id="1_2odb1"]
 [ext_resource type="PackedScene" uid="uid://ucayjks3yaav" path="res://player.tscn" id="2_d0e0c"]
+[ext_resource type="PackedScene" uid="uid://dqstsgo4ixg3g" path="res://spikes.tscn" id="3_skte1"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_2odb1")
 
 [node name="platform" type="StaticBody2D" parent="."]
+collision_mask = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="platform"]
 position = Vector2(-3, 24)
-polygon = PackedVector2Array(16, 0, 16, 88, 64, 88, 104, 112, 160, 112, 160, 144, 184, 144, 184, 112, 208, 112, 272, 128, 320, 128, 384, 64, 408, 64, 408, 120, 432, 120, 432, 64, 448, 64, 448, 116.322, 466, 108, 461.149, 128, 480, 128, 512, 96, 579, -88, 235, -88, 235, 32, 187, 32, 187, -88, 187, -128, 640, -128, 640, 320, -64, 320, -64, 0)
+polygon = PackedVector2Array(16, 0, 16, 88, 64, 88, 104, 112, 163, 112, 163, 144, 195, 144, 195, 112, 208, 112, 272, 128, 320, 128, 384, 64, 408, 64, 408, 120, 432, 120, 432, 64, 448, 64, 448, 116.322, 466, 108, 461.149, 128, 480, 128, 512, 96, 579, -88, 235, -88, 235, 32, 187, 32, 187, -88, 187, -128, 640, -128, 640, 320, -64, 320, -64, 0)
 
 [node name="Polygon2D" type="Polygon2D" parent="platform/CollisionPolygon2D"]
 
 [node name="Player" parent="." instance=ExtResource("2_d0e0c")]
-position = Vector2(128, 88)
+position = Vector2(24, 104)
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Spikes" parent="." instance=ExtResource("3_skte1")]
+position = Vector2(160, 168)
+
+[node name="Spikes2" parent="." instance=ExtResource("3_skte1")]
+position = Vector2(176, 168)
+
+[connection signal="died" from="Player" to="." method="_on_player_died"]

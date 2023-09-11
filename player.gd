@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal died
+
 @export var movement_data : PlayerMovementData
 
 var can_air_jump = false
@@ -94,7 +96,12 @@ func _physics_process(delta):
 
 func die_if_fell_out_of_world():
 	if position.y > 360:
-		position = initial_position 
+		reset()
+
+func reset():
+	position = initial_position 
+	velocity = Vector2.ZERO
+	died.emit()
 
 # default sprite faces right, flipped faces left
 # negative if facting left, positive if facing right
@@ -123,3 +130,6 @@ func update_animations(input_axis: float):
 
 	animated_sprite_2d.flip_h = facing_direction < 0
 
+func _on_hazard_detector_area_entered(_area):
+	print("player entered hazard")
+	reset()
