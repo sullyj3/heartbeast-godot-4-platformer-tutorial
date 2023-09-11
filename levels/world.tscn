@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://cm84lsxp6tc1u"]
+
+[ext_resource type="Script" path="res://levels/world.gd" id="1_1vnc5"]
+[ext_resource type="PackedScene" uid="uid://ucayjks3yaav" path="res://player/player.tscn" id="2_w7h7f"]
+[ext_resource type="PackedScene" uid="uid://dqstsgo4ixg3g" path="res://items/spikes.tscn" id="3_sacq6"]
+[ext_resource type="PackedScene" uid="uid://cnisouyvo0ts2" path="res://items/heart.tscn" id="4_7xj4e"]
+[ext_resource type="PackedScene" uid="uid://dxrvmrkq2a50j" path="res://ui/level_completed.tscn" id="5_3n4iv"]
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_1vnc5")
+
+[node name="platform" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="platform"]
+position = Vector2(-3, 24)
+polygon = PackedVector2Array(16, 0, 16, 88, 64, 88, 104, 112, 163, 112, 163, 144, 195, 144, 195, 112, 208, 112, 272, 128, 320, 128, 384, 64, 408, 64, 408, 120, 432, 120, 432, 64, 448, 64, 448, 116.322, 466, 108, 461.149, 128, 480, 128, 512, 96, 579, -88, 235, -88, 235, 32, 187, 32, 187, -88, 187, -128, 640, -128, 640, 320, -64, 320, -64, 0)
+
+[node name="Polygon2D" type="Polygon2D" parent="platform/CollisionPolygon2D"]
+
+[node name="Player" parent="." instance=ExtResource("2_w7h7f")]
+position = Vector2(24, 104)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Spikes" parent="." instance=ExtResource("3_sacq6")]
+position = Vector2(160, 168)
+
+[node name="Spikes2" parent="." instance=ExtResource("3_sacq6")]
+position = Vector2(176, 168)
+
+[node name="Heart" parent="." instance=ExtResource("4_7xj4e")]
+position = Vector2(176, 96)
+
+[node name="Heart4" parent="." instance=ExtResource("4_7xj4e")]
+position = Vector2(-32, 8)
+
+[node name="Heart2" parent="." instance=ExtResource("4_7xj4e")]
+position = Vector2(416, 136)
+
+[node name="Heart3" parent="." instance=ExtResource("4_7xj4e")]
+position = Vector2(472, 144)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="LevelCompleted" parent="CanvasLayer" instance=ExtResource("5_3n4iv")]
+visible = false
+
+[connection signal="died" from="Player" to="." method="_on_player_died"]

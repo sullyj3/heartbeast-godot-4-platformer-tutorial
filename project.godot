@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="Heartbeast godot 4 platformer"
-run/main_scene="res://world.tscn"
+run/main_scene="res://levels/world.tscn"
 config/features=PackedStringArray("4.0", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="res://ui/icon.svg"
+
+[autoload]
+
+Events="*res://Events.gd"
 
 [display]
 
@@ -71,6 +75,7 @@ sprint={
 2d_physics/layer_1="world"
 2d_physics/layer_2="player"
 2d_physics/layer_3="hazards"
+2d_physics/layer_4="collectables"
 
 [rendering]
 
