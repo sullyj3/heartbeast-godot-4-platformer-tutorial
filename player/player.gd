@@ -78,6 +78,7 @@ func apply_air_resistance(input_axis: float, delta):
 	if input_axis == 0 and not is_on_floor():
 		velocity.x = move_toward(velocity.x, 0, movement_data.air_resistance * delta)
 
+
 func _physics_process(delta):
 	if die_if_fell_out_of_world():
 		return
