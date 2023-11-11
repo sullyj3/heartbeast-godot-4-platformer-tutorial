@@ -14,4 +14,6 @@ fill_from = Vector2(0.5, 0.521368)
 position = Vector2(88, 40)
 color = Color(0.878431, 0.623529, 0.482353, 1)
 energy = 0.6
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 1)
 texture = SubResource("GradientTexture2D_a5cia")

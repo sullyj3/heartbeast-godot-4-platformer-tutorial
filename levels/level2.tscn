@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://ewlos5ludvva"]
+[gd_scene load_steps=7 format=3 uid="uid://ewlos5ludvva"]
 
 [ext_resource type="PackedScene" uid="uid://cm84lsxp6tc1u" path="res://levels/world.tscn" id="1_e716p"]
 [ext_resource type="PackedScene" uid="uid://cnisouyvo0ts2" path="res://items/heart.tscn" id="2_kp43l"]
 [ext_resource type="PackedScene" uid="uid://dengshx3r8fdq" path="res://levels/level3.tscn" id="2_xdnsi"]
 [ext_resource type="PackedScene" uid="uid://dqstsgo4ixg3g" path="res://items/spikes.tscn" id="3_cwf21"]
 [ext_resource type="PackedScene" uid="uid://ccud82s2audk" path="res://levels/circular_pointlight.tscn" id="4_arvqi"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_tkmrf"]
+polygon = PackedVector2Array(64, 48, -112, 48, -112, 32, -112, -80, -96, -80, -96, -64, -96, 32, 64, 32, 80, 32, 80, 48, 128, 48, 128, 32, 144, 32, 144, -64, -88, -64, -88, -80, 144, -80, 160, -80, 160, 48, 144, 48, 144, 64, 128, 64, 80, 64, 64, 64)
 
 [node name="World" instance=ExtResource("1_e716p")]
 next_level = ExtResource("2_xdnsi")
@@ -37,9 +40,13 @@ color = Color(0.878431, 0.176471, 0.176471, 1)
 
 [node name="CircularPointLight2" parent="." index="8" instance=ExtResource("4_arvqi")]
 position = Vector2(104, 43)
+shadow_color = Color(0, 0, 0, 0.658824)
 
 [node name="CircularPointLight3" parent="." index="9" instance=ExtResource("4_arvqi")]
 position = Vector2(120, 43)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." index="10"]
 color = Color(0.266667, 0.266667, 0.266667, 1)
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="." index="11"]
+occluder = SubResource("OccluderPolygon2D_tkmrf")

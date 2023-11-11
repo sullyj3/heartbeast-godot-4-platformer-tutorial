@@ -84,7 +84,7 @@ func _physics_process(delta):
 		return
 	apply_gravity(delta)
 	handle_jump()
-	var input_axis: float = Input.get_axis("ui_left", "ui_right")
+	var input_axis: float = Input.get_axis("move_left", "move_right")
 	update_animations(input_axis)
 	handle_acceleration(input_axis, delta)
 	apply_friction(input_axis, delta)
