@@ -11,13 +11,14 @@ config_version=5
 [application]
 
 config/name="Heartbeast godot 4 platformer"
-run/main_scene="res://levels/world.tscn"
+run/main_scene="res://levels/level1.tscn"
 config/features=PackedStringArray("4.0", "GL Compatibility")
 config/icon="res://ui/icon.svg"
 
 [autoload]
 
 Events="*res://Events.gd"
+LevelTransition="*res://levels/level_transition.tscn"
 
 [display]
 

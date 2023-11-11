@@ -1,13 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://ewlos5ludvva"]
+[gd_scene load_steps=5 format=3 uid="uid://dengshx3r8fdq"]
 
-[ext_resource type="PackedScene" uid="uid://cm84lsxp6tc1u" path="res://levels/world.tscn" id="1_e716p"]
-[ext_resource type="PackedScene" uid="uid://cnisouyvo0ts2" path="res://items/heart.tscn" id="2_kp43l"]
-[ext_resource type="PackedScene" uid="uid://dengshx3r8fdq" path="res://levels/level3.tscn" id="2_xdnsi"]
-[ext_resource type="PackedScene" uid="uid://dqstsgo4ixg3g" path="res://items/spikes.tscn" id="3_cwf21"]
-[ext_resource type="PackedScene" uid="uid://ccud82s2audk" path="res://levels/circular_pointlight.tscn" id="4_arvqi"]
+[ext_resource type="PackedScene" uid="uid://cm84lsxp6tc1u" path="res://levels/world.tscn" id="1_wexgt"]
+[ext_resource type="PackedScene" uid="uid://cnisouyvo0ts2" path="res://items/heart.tscn" id="2_rfd6v"]
+[ext_resource type="PackedScene" uid="uid://dqstsgo4ixg3g" path="res://items/spikes.tscn" id="3_or3ah"]
+[ext_resource type="PackedScene" uid="uid://ccud82s2audk" path="res://levels/circular_pointlight.tscn" id="4_cuori"]
 
-[node name="World" instance=ExtResource("1_e716p")]
-next_level = ExtResource("2_xdnsi")
+[node name="World" instance=ExtResource("1_wexgt")]
 
 [node name="Player" parent="." index="0"]
 position = Vector2(-80, 32)
@@ -22,23 +20,23 @@ layer_2/y_sort_origin = 0
 layer_2/z_index = 0
 layer_2/tile_data = PackedInt32Array(131077, 3, 0, 131078, 3, 0, 131079, 3, 0)
 
-[node name="Heart" parent="." index="4" instance=ExtResource("2_kp43l")]
+[node name="Heart" parent="." index="4" instance=ExtResource("2_rfd6v")]
 position = Vector2(56, 8)
 
-[node name="Spikes" parent="." index="5" instance=ExtResource("3_cwf21")]
+[node name="Spikes" parent="." index="5" instance=ExtResource("3_or3ah")]
 position = Vector2(0, 32)
 
-[node name="Spikes2" parent="." index="6" instance=ExtResource("3_cwf21")]
+[node name="Spikes2" parent="." index="6" instance=ExtResource("3_or3ah")]
 position = Vector2(-56, 32)
 
-[node name="CircularPointLight" parent="." index="7" instance=ExtResource("4_arvqi")]
+[node name="CircularPointLight" parent="." index="7" instance=ExtResource("4_cuori")]
 position = Vector2(88, 42)
 color = Color(0.878431, 0.176471, 0.176471, 1)
 
-[node name="CircularPointLight2" parent="." index="8" instance=ExtResource("4_arvqi")]
+[node name="CircularPointLight2" parent="." index="8" instance=ExtResource("4_cuori")]
 position = Vector2(104, 43)
 
-[node name="CircularPointLight3" parent="." index="9" instance=ExtResource("4_arvqi")]
+[node name="CircularPointLight3" parent="." index="9" instance=ExtResource("4_cuori")]
 position = Vector2(120, 43)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." index="10"]

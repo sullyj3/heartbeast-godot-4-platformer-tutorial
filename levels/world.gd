@@ -1,5 +1,7 @@
 extends Node2D
 
+@export var next_level: PackedScene
+
 @onready var camera = $Camera2D
 @onready var player = $Player
 @onready var level_completed = $CanvasLayer/LevelCompleted
@@ -18,5 +20,9 @@ func _process(_delta):
 		get_tree().quit()
 
 func show_level_completed():
-	print("Level completed!")
 	level_completed.show()
+	if not next_level is PackedScene: return
+	
+	await LevelTransition.fade_to_black()
+	get_tree().change_scene_to_packed(next_level)
+	LevelTransition.fade_from_black()
