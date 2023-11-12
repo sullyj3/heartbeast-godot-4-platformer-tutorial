@@ -1,0 +1,105 @@
+[gd_scene load_steps=13 format=3 uid="uid://mh2245pfeqs2"]
+
+[ext_resource type="Script" path="res://ui/start_menu.gd" id="1_w8j2u"]
+[ext_resource type="PackedScene" uid="uid://6wk324wgvc1d" path="res://levels/level1.tscn" id="2_iw0pc"]
+[ext_resource type="Texture2D" uid="uid://7by7hquewgmf" path="res://ui/gdb-playstation-2.png" id="3_fre75"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o064i"]
+atlas = ExtResource("3_fre75")
+region = Rect2(48, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ufjcf"]
+atlas = ExtResource("3_fre75")
+region = Rect2(64, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ulin"]
+atlas = ExtResource("3_fre75")
+region = Rect2(80, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uwc5l"]
+atlas = ExtResource("3_fre75")
+region = Rect2(96, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ebw0u"]
+atlas = ExtResource("3_fre75")
+region = Rect2(48, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ecq4r"]
+atlas = ExtResource("3_fre75")
+region = Rect2(64, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j4xba"]
+atlas = ExtResource("3_fre75")
+region = Rect2(80, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bs3ff"]
+atlas = ExtResource("3_fre75")
+region = Rect2(96, 64, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7rvd3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o064i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ufjcf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ulin")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uwc5l")
+}],
+"loop": true,
+"name": &"o_button",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ebw0u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ecq4r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j4xba")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bs3ff")
+}],
+"loop": true,
+"name": &"x_button",
+"speed": 5.0
+}]
+
+[node name="StartMenu" type="CenterContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_w8j2u")
+first_level = ExtResource("2_iw0pc")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="StartGameButton" type="Button" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Start Game"
+
+[node name="Quitbutton" type="Button" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Quit"
+
+[node name="uiButtonPrompt" type="AnimatedSprite2D" parent="."]
+position = Vector2(304, 168)
+sprite_frames = SubResource("SpriteFrames_7rvd3")
+animation = &"o_button"
+autoplay = "o_button"
+
+[connection signal="pressed" from="VBoxContainer/StartGameButton" to="." method="_on_start_game_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Quitbutton" to="." method="_on_quitbutton_pressed"]
