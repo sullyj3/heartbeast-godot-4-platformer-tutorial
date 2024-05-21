@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dxrvmrkq2a50j"]
 
-[node name="LevelCompleted" type="ColorRect"]
+[node name="LevelComplete" type="ColorRect"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -18,4 +18,5 @@ grow_vertical = 2
 
 [node name="Label" type="Label" parent="CenterContainer"]
 layout_mode = 2
-text = "Level Completed"
+text = "Level Complete!
+"

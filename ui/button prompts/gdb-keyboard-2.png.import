@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ca6miti7es4uf"
-path="res://.godot/imported/gdb-switch-2.png-b72ab736d0bc1df76f659ec4661cc1d6.ctex"
+uid="uid://dx7k8t83rtg8h"
+path="res://.godot/imported/gdb-keyboard-2.png-07024686b198d8cfb6ca1a8b1c9fa47f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/gdb-switch-2.png"
-dest_files=["res://.godot/imported/gdb-switch-2.png-b72ab736d0bc1df76f659ec4661cc1d6.ctex"]
+source_file="res://ui/button prompts/gdb-keyboard-2.png"
+dest_files=["res://.godot/imported/gdb-keyboard-2.png-07024686b198d8cfb6ca1a8b1c9fa47f.ctex"]
 
 [params]
 

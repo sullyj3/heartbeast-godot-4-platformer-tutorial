@@ -10,6 +10,7 @@ func any_joystick_connected():
 	return not Input.get_connected_joypads().is_empty()
 
 func _ready():
+	RenderingServer.set_default_clear_color(Color.BLACK)
 	start_game_button.grab_focus()
 	
 	# gamepad UI set

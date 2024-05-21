@@ -7,7 +7,6 @@ extends Node2D
 @onready var level_completed = $CanvasLayer/LevelCompleted
 
 func _ready():
-	RenderingServer.set_default_clear_color(Color.BLACK)
 	Events.level_completed.connect(show_level_completed)
 
 func _process(_delta):
@@ -21,5 +20,6 @@ func _process(_delta):
 
 func show_level_completed():
 	level_completed.show()
+	await get_tree().create_timer(1.0, true).timeout
 	if not next_level is PackedScene: return
 	LevelTransition.transition_to(next_level)

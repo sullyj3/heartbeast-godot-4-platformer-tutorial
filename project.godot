@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Heartbeast godot 4 platformer"
 run/main_scene="res://ui/start_menu.tscn"
-config/features=PackedStringArray("4.0", "GL Compatibility")
+config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://ui/icon.svg"
 
 [autoload]
@@ -28,10 +28,20 @@ window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="canvas_items"
 
+[dotnet]
+
+project/assembly_name="Heartbeast godot 4 platformer"
+
 [editor]
 
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
+
+[gui]
+
+theme/custom="res://ui/theme/default_theme.tres"
+theme/custom_font="res://ui/theme/pixel_font.ttf"
+theme/default_font_subpixel_positioning=0
 
 [input]
 
