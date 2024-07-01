@@ -32,11 +32,6 @@ window/stretch/mode="canvas_items"
 
 project/assembly_name="Heartbeast godot 4 platformer"
 
-[editor]
-
-version_control/plugin_name="GitPlugin"
-version_control/autoload_on_startup=true
-
 [gui]
 
 theme/custom="res://ui/theme/default_theme.tres"
